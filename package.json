@@ -1,0 +1,12 @@
+{
+  "name": "create-html5-skeleton",
+  "version": "0.1.0",
+  "description": "This generates html page skeleton with most recommended configuration.",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
