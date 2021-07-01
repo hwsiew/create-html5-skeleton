@@ -1,0 +1,10 @@
+{
+	"supports" : {
+		"safari"		: true,
+		"openGraph"		: true,
+		"twitterCard"	: true,
+		"resetCss" 		: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+	},
+	"outDir" 	  	: "build",
+	"fileName"		: "index"	
+}
