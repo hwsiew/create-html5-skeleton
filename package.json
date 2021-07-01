@@ -1,13 +1,17 @@
 {
   "name": "create-html5-skeleton",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "This generates html page skeleton with most recommended configuration.",
   "main": "index.js",
   "scripts": {
     "build": "node scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "html",
+    "html5",
+    "generator"
+  ],
   "author": {
     "name" : "Hong Wei, Siew",
     "email" : "hw.siew.work@gmail.com",
