@@ -1,6 +1,6 @@
 {
   "name": "create-html5-skeleton",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This generates html page skeleton with most recommended configuration.",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name" : "Hong Wei, Siew",
+    "email" : "hw.siew.work@gmail.com",
+    "url" : "https://hwsiew.github.io/"
+  },
   "license": "ISC",
   "bin": {
     "create-html" : "scripts/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hwsiew/create-html5-skeleton.git"
   }
 }
