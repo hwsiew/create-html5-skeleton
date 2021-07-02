@@ -13,16 +13,20 @@
     "generator"
   ],
   "author": {
-    "name" : "Hong Wei, Siew",
-    "email" : "hw.siew.work@gmail.com",
-    "url" : "https://hwsiew.github.io/"
+    "name": "Hong Wei, Siew",
+    "email": "hw.siew.work@gmail.com",
+    "url": "https://hwsiew.github.io/"
   },
   "license": "ISC",
   "bin": {
-    "create-html" : "scripts/cli.js"
+    "create-html": "scripts/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/hwsiew/create-html5-skeleton.git"
+  },
+  "devDependencies": {
+    "@types/node": "^15.14.0",
+    "typescript": "^4.3.5"
   }
 }
