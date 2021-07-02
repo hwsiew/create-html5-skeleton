@@ -1,10 +1,12 @@
 {
   "name": "create-html5-skeleton",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "This generates html page skeleton with most recommended configuration.",
-  "main": "index.js",
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm/index.js",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,7 +21,7 @@
   },
   "license": "ISC",
   "bin": {
-    "create-html": "scripts/cli.js"
+    "create-html": "build/cjs/cli.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +30,9 @@
   "devDependencies": {
     "@types/node": "^15.14.0",
     "typescript": "^4.3.5"
-  }
+  },
+  "files": [
+    "build/",
+    "html/"
+  ]
 }
