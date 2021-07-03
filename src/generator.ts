@@ -1,13 +1,17 @@
 import fs from 'fs';
 import path from 'path';
-import * as config from './config.json';
+// import * as config from './config.json';
 import * as util from  './util';
+import defaultConfig from './config';
+import _ from 'lodash';
 
-const htmlGenerator = function(settings?: util.Configuration){
+const htmlGenerator = function(settings: util.Configuration = {}){
+
+	let config = defaultConfig
 
 	if(settings && Object.keys(settings).length) {
-		util.mergeDeep(config, settings);
-	}
+		_.merge(config, settings);
+	}	
 
 	fs.readFile(path.resolve(__dirname, '../../html/base.html'), 'utf8' , (err, base) => {
 	
@@ -62,11 +66,28 @@ const htmlGenerator = function(settings?: util.Configuration){
 			twitter = _twitter.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , twitter);
 		} 
 		content = content.replace('{%twitterCard%}', twitter);
+
+		let dnsPrefetch = '';
+		if('dnsPrefetch' in config.supports && config.supports['dnsPrefetch']){
+			let links = config.supports['dnsPrefetch'].map(link=> `<link rel="dns-prefetch" href="${link}">`);
+			dnsPrefetch = links.join('\n\t');
+		}
+		content = content.replace('{%dnsPrefetch%}', dnsPrefetch);
+
+		let preconnection = '';
+		if('preconnection' in config.supports && config.supports['preconnection']){
+			let links = config.supports['preconnection'].map(link=> `<link rel="preconnect" href="${link}">`);
+			preconnection = links.join('\n\t');
+		}
+		content = content.replace('{%preconnection%}', preconnection);
 	
 		// remove blank line(s)
 		content = content.replace(/^\s*[\r\n]/gm, "") 
 
 		let output = `${config.outDir}/${config.fileName}.html`;
+		if('filePath' in config && config['filePath']){
+			output = config['filePath'];
+		}
 
 		util.ensureDirectoryExistence(output);
 	

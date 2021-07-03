@@ -13,30 +13,13 @@ export interface Configuration {
 		safari?: boolean,
 		openGraph?: boolean,
 		twitterCard?: boolean,
-		resetCss?: string
+		resetCss?: string,
+		dnsPrefetch?: Array<string>,
+		preconnection?: Array<string>
 	},
 	outDir?: string,
-	fileName?: string
-}
-
-function isObject(item: any) {
-	return (item && typeof item === 'object' && !Array.isArray(item));
-}
-
-export function mergeDeep(target: Configuration, source: Configuration): object {
-	
-	if (isObject(target) && isObject(source)) {
-	  for (const key in source) {
-		if (isObject(source[key])) {
-		  if (!target[key]) Object.assign(target, { [key]: {} });
-		  mergeDeep(target[key], source[key]);
-		} else {
-		  Object.assign(target, { [key]: source[key] });
-		}
-	  }
-	}
-  
-	return mergeDeep(target, source);
+	fileName?: string,
+	filePath?: string,
 }
 
 export function ensureDirectoryExistence(filePath: string) {
