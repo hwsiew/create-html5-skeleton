@@ -1,10 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import * as config from './config.json';
+// import * as config from './config.json';
 import * as util from './util';
-const htmlGenerator = function (settings) {
+import defaultConfig from './config';
+import _ from 'lodash';
+const htmlGenerator = function (settings = {}) {
+    let config = defaultConfig;
     if (settings && Object.keys(settings).length) {
-        util.mergeDeep(config, settings);
+        _.merge(config, settings);
     }
     fs.readFile(path.resolve(__dirname, '../../html/base.html'), 'utf8', (err, base) => {
         if (err) {
@@ -56,6 +59,9 @@ const htmlGenerator = function (settings) {
         // remove blank line(s)
         content = content.replace(/^\s*[\r\n]/gm, "");
         let output = `${config.outDir}/${config.fileName}.html`;
+        if ('filePath' in config && config['filePath']) {
+            output = config['filePath'];
+        }
         util.ensureDirectoryExistence(output);
         fs.writeFileSync(output, content);
     });

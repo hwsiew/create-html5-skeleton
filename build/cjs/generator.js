@@ -24,11 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const config = __importStar(require("./config.json"));
+// import * as config from './config.json';
 const util = __importStar(require("./util"));
-const htmlGenerator = function (settings) {
+const config_1 = __importDefault(require("./config"));
+const lodash_1 = __importDefault(require("lodash"));
+const htmlGenerator = function (settings = {}) {
+    let config = config_1.default;
     if (settings && Object.keys(settings).length) {
-        util.mergeDeep(config, settings);
+        lodash_1.default.merge(config, settings);
     }
     fs_1.default.readFile(path_1.default.resolve(__dirname, '../../html/base.html'), 'utf8', (err, base) => {
         if (err) {
@@ -80,6 +83,9 @@ const htmlGenerator = function (settings) {
         // remove blank line(s)
         content = content.replace(/^\s*[\r\n]/gm, "");
         let output = `${config.outDir}/${config.fileName}.html`;
+        if ('filePath' in config && config['filePath']) {
+            output = config['filePath'];
+        }
         util.ensureDirectoryExistence(output);
         fs_1.default.writeFileSync(output, content);
     });
