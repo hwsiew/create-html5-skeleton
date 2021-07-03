@@ -13,7 +13,9 @@ export interface Configuration {
 		safari?: boolean,
 		openGraph?: boolean,
 		twitterCard?: boolean,
-		resetCss?: string
+		resetCss?: string,
+		dnsPrefetch?: Array<string>,
+		preconnection?: Array<string>
 	},
 	outDir?: string,
 	fileName?: string,
