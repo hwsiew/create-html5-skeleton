@@ -56,6 +56,18 @@ const htmlGenerator = function (settings = {}) {
             twitter = _twitter.split('\n').reduce((acc, line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line, twitter);
         }
         content = content.replace('{%twitterCard%}', twitter);
+        let dnsPrefetch = '';
+        if ('dnsPrefetch' in config.supports && config.supports['dnsPrefetch']) {
+            let links = config.supports['dnsPrefetch'].map(link => `<link rel="dns-prefetch" href="${link}">`);
+            dnsPrefetch = links.join('\n\t');
+        }
+        content = content.replace('{%dnsPrefetch%}', dnsPrefetch);
+        let preconnection = '';
+        if ('preconnection' in config.supports && config.supports['preconnection']) {
+            let links = config.supports['preconnection'].map(link => `<link rel="preconnect" href="${link}">`);
+            preconnection = links.join('\n\t');
+        }
+        content = content.replace('{%preconnection%}', preconnection);
         // remove blank line(s)
         content = content.replace(/^\s*[\r\n]/gm, "");
         let output = `${config.outDir}/${config.fileName}.html`;
