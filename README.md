@@ -3,17 +3,18 @@
 Do you get your HTML page right? Often times, cross-browser compatibility is the top priority of webapp or website. However, html is the most overlooked element as compared to css and javascript. This html skeleton generator enforces various SEO best practices and browsers support meta tags for different purpose. You can generate a html skeleton depends on your need or include most recommended settings for a html page. 
 
 ## Supported Elements
-- Open Graph
-- Twitter Card
-- Safari Web Clip
-- Reset css
-- and more...
+- [Open Graph Markup](https://developers.facebook.com/docs/sharing/webmasters/#markup)
+- [Twitter Card](https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started)
+- [Safari Web Clip](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html)
+- [Reset css](https://meyerweb.com/eric/tools/css/reset/)
+- [DNS Prefetch](https://developer.mozilla.org/en-US/docs/Web/Performance/dns-prefetch)
+- [Preconnet](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preconnect)
 
 ## Installation
 `npm install -D create-html5-skeleton`
 
 ## HTML Generation
-`npx create-html`
+`npx create-html --filePath=path/to/file.html`
 
 ## Import 
 ```javascript
@@ -63,6 +64,8 @@ The following snippet shows all inclusive html 5 skeleton. You may selectively d
   <meta name="twitter:title" content="Content Title">
   <meta name="twitter:description" content="Content description less than 200 characters">
   <meta name="twitter:image" content="https://example.com/image.jpg">
+  <link rel="dns-prefetch" href="http://example.com">
+	<link rel="preconnect" href="http://example.com">
 </head>
 <body>
   <!-- Your content here -->
@@ -75,17 +78,20 @@ You may include your custom configuration file to override the default configura
 ```json
 {
   "supports" : {
-	"lang"			: "en",
-	"charset"		: "utf-8",
-	"title"			: "Title",
-	"description"	: "Page description",
-	"favicon"		: "favicon.icon",
-    "safari"		: true, 
-    "openGraph"		: true,
-    "twitterCard"	: true,
-    "resetCss" 		: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+	  "lang"      : "en",
+	  "charset"   : "utf-8",
+	  "title"     : "Title",
+	  "description" : "Page description",
+	  "favicon"   : "favicon.icon",
+    "safari"      : true, 
+    "openGraph"   : true,
+    "twitterCard" : true,
+    "resetCss"    : "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
+    "dnsPrefetch"	: [],
+		"preconnection" : []
   },
- "outDir" 	  		: "build",
- "fileName"			: "index"	
+ "outDir"    : "build",
+ "fileName"  : "index",
+ "filePath"  : ""
 }
 ```
