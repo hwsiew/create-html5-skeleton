@@ -1,6 +1,15 @@
 import path from 'path';
 import fs from 'fs';
 
+export interface appleConfig {
+	icons?: {
+		[index: string]: any;
+		default: string,
+	},
+	startupImage?: string,
+	webAppTitle?: string
+};
+
 export interface Configuration {
 	[index: string]: any;
 	supports?: {
