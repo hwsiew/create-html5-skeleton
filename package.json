@@ -1,6 +1,6 @@
 {
   "name": "create-html5-skeleton",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "This generates html page skeleton with most recommended configuration.",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
