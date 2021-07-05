@@ -1,5 +1,7 @@
 # HTML Skeleton
 
+![npm](https://img.shields.io/npm/v/create-html5-skeleton)
+
 Do you get your HTML page right? Often times, cross-browser compatibility is the top priority of webapp or website. However, html is the most overlooked element as compared to css and javascript. This html skeleton generator enforces various SEO best practices and browsers support meta tags for different purpose. You can generate a html skeleton depends on your need or include most recommended settings for a html page. 
 
 ## Supported Elements
