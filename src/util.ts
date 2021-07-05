@@ -1,6 +1,18 @@
 import path from 'path';
 import fs from 'fs';
 
+export interface openGraphConfig {
+	type?: string,
+	url?: string,
+	title?: string,
+	image?: string,
+	imageWidth?: string,
+	imageHeight?: string,
+	description?: string,
+	siteName?: string,
+	locale?: string,	
+}
+
 export interface appleConfig {
 	icons?: {
 		[index: string]: any;

@@ -35,6 +35,21 @@ export function appleSnippet(config: util.appleConfig){
 	return content.join('\n\t');
 }
 
+export function openGraphSnippet(config: util.openGraphConfig){
+	let content: Array<string> = [];
+
+	for(const [key, value] of Object.entries(config)){
+		let property = key;
+		if(property == 'imageWidth') property = 'image:width';
+		else if(property == 'imageHeight') property = 'image:height';
+		else if(property == 'siteName') property = 'site_name';
+
+		content.push(`<meta property="og:${property}" content="${value}">`);
+	}
+
+	return content.join('\n\t');
+}
+
 const htmlGenerator = function(settings: util.Configuration = {}){
 
 	let config = defaultConfig
@@ -78,8 +93,7 @@ const htmlGenerator = function(settings: util.Configuration = {}){
 	
 		let openGraph = '';
 		if('openGraph' in config.supports && config.supports['openGraph']){
-			let _openGraph = fs.readFileSync(path.resolve(__dirname, '../../html/openGraph.html'), {encoding:'utf8', flag:'r'});
-			openGraph = _openGraph.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , openGraph);
+			openGraph = openGraphSnippet(config.supports['openGraph']);
 		} 
 		content = content.replace('{%openGraph%}', openGraph);
 	

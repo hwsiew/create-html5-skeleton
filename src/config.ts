@@ -5,7 +5,7 @@ const config = {
 		"title"			: "Title",
 		"description"	: "Page description",
 		"favicon"		: "favicon.icon",
-		"safari"		: true,
+		"safari"		: true, // depreacted use 'apple' instead
 		"apple"		: {
 			"icons" : {
 				"default": "touch-icon-iphone.png",
@@ -16,7 +16,17 @@ const config = {
 			"webAppTitle": "AppTitle",
 			"startupImage": "/launch.png"
 		},
-		"openGraph"		: true,
+		"openGraph"		: {
+			"type": "website",
+			"url": "https://example.com/page.html",
+			"title": "Content Title",
+			"image": "https://example.com/image.jpg",
+			"imageWidth": "1200",
+			"imageHeight": "630",
+			"description": "Description Here",
+			"siteName": "Site Name",
+			"locale": "en_US"
+		},
 		"twitterCard"	: true,
 		"resetCss" 		: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
 		"dnsPrefetch"	: [],

@@ -1,7 +1,8 @@
 import { 
 	prefetchDNS,
 	preconnetion,
-	appleSnippet
+	appleSnippet,
+	openGraphSnippet
 } from '../src/generator';
 import * as util from '../src/util';
 
@@ -70,5 +71,25 @@ describe('HTML generator', () => {
 		};
 		expect(appleSnippet(config)).toEqual('<meta name="apple-mobile-web-app-title" content="AppTitle">');
 	});
+
+	test('open graph no meta tags', () => {
+		let config = {};
+		expect(openGraphSnippet(config)).toEqual('');
+	});
+
+	test('open graph meta tags', () => {
+		let config = {
+			"type": "website",
+			"url": "https://example.com/page.html",
+			"title": "Content Title",
+			"image": "https://example.com/image.jpg",
+			"imageWidth": "1200",
+			"imageHeight": "630",
+			"description": "Description Here",
+			"siteName": "Site Name",
+			"locale": "en_US"
+		};
+		expect(openGraphSnippet(config)).toEqual('<meta property="og:type" content="website">\n\t<meta property="og:url" content="https://example.com/page.html">\n\t<meta property="og:title" content="Content Title">\n\t<meta property="og:image" content="https://example.com/image.jpg">\n\t<meta property="og:image:width" content="1200">\n\t<meta property="og:image:height" content="630">\n\t<meta property="og:description" content="Description Here">\n\t<meta property="og:site_name" content="Site Name">\n\t<meta property="og:locale" content="en_US">');
+	})
 });
 
