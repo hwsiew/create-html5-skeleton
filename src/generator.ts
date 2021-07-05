@@ -50,6 +50,15 @@ export function openGraphSnippet(config: util.openGraphConfig){
 	return content.join('\n\t');
 }
 
+export function twitterSnippet(config: util.twitterConfig){
+	let content = [];
+	for(const [key, value] of Object.entries(config)){
+		let property = key;
+		content.push(`<meta name="twitter:${property}" content="${value}">`);
+	}
+	return content.join('\n\t');
+}
+
 const htmlGenerator = function(settings: util.Configuration = {}){
 
 	let config = defaultConfig
@@ -99,8 +108,9 @@ const htmlGenerator = function(settings: util.Configuration = {}){
 	
 		let twitter = '';
 		if('twitterCard' in config.supports && config.supports['twitterCard']){
-			let _twitter = fs.readFileSync(path.resolve(__dirname, '../../html/twitterCard.html'), {encoding:'utf8', flag:'r'});
-			twitter = _twitter.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , twitter);
+			// let _twitter = fs.readFileSync(path.resolve(__dirname, '../../html/twitterCard.html'), {encoding:'utf8', flag:'r'});
+			// twitter = _twitter.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , twitter);
+			twitter = twitterSnippet(config.supports['twitterCard']);
 		} 
 		content = content.replace('{%twitterCard%}', twitter);
 

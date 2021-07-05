@@ -27,7 +27,15 @@ const config = {
 			"siteName": "Site Name",
 			"locale": "en_US"
 		},
-		"twitterCard"	: true,
+		"twitterCard"	: {
+			"card": "summary",
+			"site": "@site_account",
+			"creator": "@individual_account",
+			"url": "https://example.com/page.html",
+			"title": "Content Title",
+			"description": "Content description less than 200 characters",
+			"image": "https://example.com/image.jpg"
+		},
 		"resetCss" 		: "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css",
 		"dnsPrefetch"	: [],
 		"preconnection" : []

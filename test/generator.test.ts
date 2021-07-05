@@ -2,7 +2,8 @@ import {
 	prefetchDNS,
 	preconnetion,
 	appleSnippet,
-	openGraphSnippet
+	openGraphSnippet,
+	twitterSnippet
 } from '../src/generator';
 import * as util from '../src/util';
 
@@ -90,6 +91,24 @@ describe('HTML generator', () => {
 			"locale": "en_US"
 		};
 		expect(openGraphSnippet(config)).toEqual('<meta property="og:type" content="website">\n\t<meta property="og:url" content="https://example.com/page.html">\n\t<meta property="og:title" content="Content Title">\n\t<meta property="og:image" content="https://example.com/image.jpg">\n\t<meta property="og:image:width" content="1200">\n\t<meta property="og:image:height" content="630">\n\t<meta property="og:description" content="Description Here">\n\t<meta property="og:site_name" content="Site Name">\n\t<meta property="og:locale" content="en_US">');
+	})
+
+	test('twitter card no meta tags', () => {
+		let config = {};
+		expect(twitterSnippet(config)).toEqual('');
+	})
+
+	test('twitter card meta tags', () => {
+		let config = {
+			"card": "summary",
+			"site": "@site_account",
+			"creator": "@individual_account",
+			"url": "https://example.com/page.html",
+			"title": "Content Title",
+			"description": "Content description less than 200 characters",
+			"image": "https://example.com/image.jpg"
+		};
+		expect(twitterSnippet(config)).toEqual('<meta name="twitter:card" content="summary">\n\t<meta name="twitter:site" content="@site_account">\n\t<meta name="twitter:creator" content="@individual_account">\n\t<meta name="twitter:url" content="https://example.com/page.html">\n\t<meta name="twitter:title" content="Content Title">\n\t<meta name="twitter:description" content="Content description less than 200 characters">\n\t<meta name="twitter:image" content="https://example.com/image.jpg">');
 	})
 });
 

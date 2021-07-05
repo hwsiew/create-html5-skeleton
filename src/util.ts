@@ -1,6 +1,16 @@
 import path from 'path';
 import fs from 'fs';
 
+export interface twitterConfig {
+	card?: string,
+	site?: string,
+	creator?: string,
+	url?: string,
+	title?: string,
+	description?: string,
+	image?: string,
+}
+
 export interface openGraphConfig {
 	type?: string,
 	url?: string,
