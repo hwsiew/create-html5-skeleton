@@ -5,6 +5,16 @@ import * as util from  './util';
 import defaultConfig from './config';
 import _ from 'lodash';
 
+export function prefetchDNS( config: Array<string> ){
+	let links = config.map(link=> `<link rel="dns-prefetch" href="${link}">`);
+	return links.join('\n\t');
+}
+
+export function preconnetion( config: Array<string> ){
+	let links = config.map(link=> `<link rel="preconnect" href="${link}">`);
+	return links.join('\n\t');
+}
+
 const htmlGenerator = function(settings: util.Configuration = {}){
 
 	let config = defaultConfig
@@ -69,15 +79,13 @@ const htmlGenerator = function(settings: util.Configuration = {}){
 
 		let dnsPrefetch = '';
 		if('dnsPrefetch' in config.supports && config.supports['dnsPrefetch']){
-			let links = config.supports['dnsPrefetch'].map(link=> `<link rel="dns-prefetch" href="${link}">`);
-			dnsPrefetch = links.join('\n\t');
+			dnsPrefetch = prefetchDNS(config.supports['dnsPrefetch']);
 		}
 		content = content.replace('{%dnsPrefetch%}', dnsPrefetch);
 
 		let preconnection = '';
 		if('preconnection' in config.supports && config.supports['preconnection']){
-			let links = config.supports['preconnection'].map(link=> `<link rel="preconnect" href="${link}">`);
-			preconnection = links.join('\n\t');
+			preconnection = preconnetion(config.supports['preconnection']);
 		}
 		content = content.replace('{%preconnection%}', preconnection);
 	
