@@ -1,13 +1,13 @@
 {
   "name": "create-html5-skeleton",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "This generates html page skeleton with most recommended configuration.",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "html",
@@ -28,8 +28,11 @@
     "url": "https://github.com/hwsiew/create-html5-skeleton.git"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/node": "^15.14.0",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
   "files": [

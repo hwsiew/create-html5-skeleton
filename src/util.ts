@@ -1,6 +1,37 @@
 import path from 'path';
 import fs from 'fs';
 
+export interface twitterConfig {
+	card?: string,
+	site?: string,
+	creator?: string,
+	url?: string,
+	title?: string,
+	description?: string,
+	image?: string,
+}
+
+export interface openGraphConfig {
+	type?: string,
+	url?: string,
+	title?: string,
+	image?: string,
+	imageWidth?: string,
+	imageHeight?: string,
+	description?: string,
+	siteName?: string,
+	locale?: string,	
+}
+
+export interface appleConfig {
+	icons?: {
+		[index: string]: any;
+		default: string,
+	},
+	startupImage?: string,
+	webAppTitle?: string
+};
+
 export interface Configuration {
 	[index: string]: any;
 	supports?: {

@@ -3,7 +3,61 @@ import path from 'path';
 // import * as config from './config.json';
 import * as util from  './util';
 import defaultConfig from './config';
-import _ from 'lodash';
+import _, { keyBy } from 'lodash';
+
+export function prefetchDNS( config: Array<string> ){
+	let links = config.map(link=> `<link rel="dns-prefetch" href="${link}">`);
+	return links.join('\n\t');
+}
+
+export function preconnetion( config: Array<string> ){
+	let links = config.map(link=> `<link rel="preconnect" href="${link}">`);
+	return links.join('\n\t');
+}
+
+export function appleSnippet(config: util.appleConfig){
+	let content = [];
+	if(config.icons){
+		for(const [key, href] of Object.entries(config['icons'])){
+			let sizes = key !== 'default' ? `sizes="${key}" ` : '';
+			content.push(`<link rel="apple-touch-icon" ${sizes}href="${href}">`);
+		}
+	}
+
+	if('startupImage' in config){
+		content.push(`<link rel="apple-touch-startup-image" href="${config['startupImage']}">`);
+	}
+
+	if('webAppTitle' in config){
+		content.push(`<meta name="apple-mobile-web-app-title" content="${config['webAppTitle']}">`);
+	}
+
+	return content.join('\n\t');
+}
+
+export function openGraphSnippet(config: util.openGraphConfig){
+	let content: Array<string> = [];
+
+	for(const [key, value] of Object.entries(config)){
+		let property = key;
+		if(property == 'imageWidth') property = 'image:width';
+		else if(property == 'imageHeight') property = 'image:height';
+		else if(property == 'siteName') property = 'site_name';
+
+		content.push(`<meta property="og:${property}" content="${value}">`);
+	}
+
+	return content.join('\n\t');
+}
+
+export function twitterSnippet(config: util.twitterConfig){
+	let content = [];
+	for(const [key, value] of Object.entries(config)){
+		let property = key;
+		content.push(`<meta name="twitter:${property}" content="${value}">`);
+	}
+	return content.join('\n\t');
+}
 
 const htmlGenerator = function(settings: util.Configuration = {}){
 
@@ -46,38 +100,38 @@ const htmlGenerator = function(settings: util.Configuration = {}){
 			content = content.replace('{%resetcss%}', link);
 		}
 	
-		let safari = '';
-		if('safari' in config.supports && config.supports['safari']){
-			let _safari = fs.readFileSync(path.resolve(__dirname, '../../html/safari.html'), {encoding:'utf8', flag:'r'});
-			safari = _safari.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , safari);
-		} 
-		content = content.replace('{%safari%}', safari);
-	
 		let openGraph = '';
 		if('openGraph' in config.supports && config.supports['openGraph']){
-			let _openGraph = fs.readFileSync(path.resolve(__dirname, '../../html/openGraph.html'), {encoding:'utf8', flag:'r'});
-			openGraph = _openGraph.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , openGraph);
+			openGraph = openGraphSnippet(config.supports['openGraph']);
 		} 
 		content = content.replace('{%openGraph%}', openGraph);
 	
 		let twitter = '';
 		if('twitterCard' in config.supports && config.supports['twitterCard']){
-			let _twitter = fs.readFileSync(path.resolve(__dirname, '../../html/twitterCard.html'), {encoding:'utf8', flag:'r'});
-			twitter = _twitter.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , twitter);
+			// let _twitter = fs.readFileSync(path.resolve(__dirname, '../../html/twitterCard.html'), {encoding:'utf8', flag:'r'});
+			// twitter = _twitter.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , twitter);
+			twitter = twitterSnippet(config.supports['twitterCard']);
 		} 
 		content = content.replace('{%twitterCard%}', twitter);
 
+		let apple = ''
+		if('apple' in config.supports && config.supports['apple']){
+			apple = appleSnippet(config.supports['apple']);
+		} else if('safari' in config.supports && config.supports['safari']){
+			let _safari = fs.readFileSync(path.resolve(__dirname, '../../html/safari.html'), {encoding:'utf8', flag:'r'});
+			apple = _safari.split('\n').reduce((acc,line) => line.startsWith('<!--') ? acc : acc + (acc ? '\t' : '') + line , apple);
+		} 
+		content = content.replace('{%safari%}', apple);
+
 		let dnsPrefetch = '';
 		if('dnsPrefetch' in config.supports && config.supports['dnsPrefetch']){
-			let links = config.supports['dnsPrefetch'].map(link=> `<link rel="dns-prefetch" href="${link}">`);
-			dnsPrefetch = links.join('\n\t');
+			dnsPrefetch = prefetchDNS(config.supports['dnsPrefetch']);
 		}
 		content = content.replace('{%dnsPrefetch%}', dnsPrefetch);
 
 		let preconnection = '';
 		if('preconnection' in config.supports && config.supports['preconnection']){
-			let links = config.supports['preconnection'].map(link=> `<link rel="preconnect" href="${link}">`);
-			preconnection = links.join('\n\t');
+			preconnection = preconnetion(config.supports['preconnection']);
 		}
 		content = content.replace('{%preconnection%}', preconnection);
 	
